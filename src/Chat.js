@@ -53,6 +53,7 @@ function Chat() {
             timestamp={message.timestamp}
             message={message.message}
             user={message.user}
+            key={message.timestamp.seconds}
           />
         ))}
       </div>

@@ -1,47 +1,46 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import Chat from './Chat';
-import Sidebar from './Sidebar';
-import { useSelector, useDispatch } from 'react-redux';
-import { login,logout, selectUser } from './features/userSlice';
-import Login from './Login';
-import { auth } from './firebase';
-
+import React, { useEffect } from "react";
+import "./App.css";
+import Chat from "./Chat";
+import Sidebar from "./Sidebar";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
+import Login from "./Login";
+import { auth } from "./firebase";
 
 function App() {
-
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log('user is:', authUser)
-      if(authUser) {
+      console.log("user is:", authUser);
+      if (authUser) {
         // the user is logged in
-        dispatch(login({
-          uid: authUser.uid,
-          photo: authUser.photoURL,
-          email: authUser.email,
-          displayName: authUser.displayName,
-        }))
+        dispatch(
+          login({
+            uid: authUser.uid,
+            photo: authUser.photoURL,
+            email: authUser.email,
+            displayName: authUser.displayName,
+          })
+        );
       } else {
         //the user is logged out
         dispatch(logout());
       }
-    })
-  },[dispatch]);
+    });
+  }, [dispatch]);
 
   return (
     <div className="app">
       {user ? (
-      <>
-        <Sidebar />
-        <Chat />
-      </>
-      ): (
+        <>
+          <Sidebar />
+          <Chat />
+        </>
+      ) : (
         <Login />
-      ) }
-      
+      )}
     </div>
   );
 }

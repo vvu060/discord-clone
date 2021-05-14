@@ -39,6 +39,7 @@ function Sidebar() {
     }
   };
 
+  console.log(user);
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -82,10 +83,14 @@ function Sidebar() {
       </div>
 
       <div className="sidebar__profile">
-        <Avatar onClick={() => auth.signOut()} src={user.photo} />
+        <Avatar
+          onClick={() => auth.signOut()}
+          src={user.photo}
+          style={{ cursor: "pointer" }}
+        />
         <div className="sidebar__profileInfo">
           <h3>{user.displayName}</h3>
-          <p>#{user.uid}</p>
+          <p>{user.email}</p>
         </div>
 
         <div className="sidebar__profileIcons">
